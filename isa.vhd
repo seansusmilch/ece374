@@ -27,9 +27,9 @@ begin
 					 
 					 ------------- ID ------------------------------------------------
 					 id : instruction_decode port map (instr_from_im, 
-																	MemRead, MemWrite, RegWrite, add_sub, RegDst, ALUSrc, Branch, MemtoReg,
-																	read_port1, read_port2, rd_addr, immediate, 
-																	alu_op);																	-- Needs RegDst, ALUSrc, immediate in the right order (in components aswell)
+														MemRead, MemWrite, RegWrite, add_sub, RegDst, ALUSrc, Branch, MemtoReg,
+														read_port1, read_port2, rd_addr, immediate, 
+														alu_op);																	-- Needs RegDst, ALUSrc, immediate in the right order (in components aswell)
 					 
 					 ------------- RF --------------------------------------------------
 					 regwrite_mux : mux2to1 port map (RegDst, read_port2, rd_addr, write_port);
