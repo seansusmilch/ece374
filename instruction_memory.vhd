@@ -15,12 +15,12 @@ architecture struc_behaviour of instruction_memory is
 	constant NOP : std_logic_vector(31 downto 0) := (others => '1');
 	
 	constant im0 : std_logic_vector(31 downto 0) := NOP;
-	constant im1 : std_logic_vector(31 downto 0) := "100011"&"00001"&"00010"&"0000000000000000";		-- LW R2, 0(R1)				Expect: 5
-	constant im2 : std_logic_vector(31 downto 0) := "100011"&"00001"&"00011"&"0000000000000001";		-- LW R3, 1(R1)				Expect: 4
-	constant im3 : std_logic_vector(31 downto 0) := "000000"&"00010"&"00011"&"00010"&"00000"&"100000";		-- ADD R2, R2, R3		Expect: 9
-	constant im4 : std_logic_vector(31 downto 0) := "101011"&"00001"&"00010"&"0000000000000000";		-- SW R2, 0(R1)				Expect: 9
-	constant im5 : std_logic_vector(31 downto 0) := NOP;
-	constant im6 : std_logic_vector(31 downto 0) := NOP;
+	constant im1 : std_logic_vector(31 downto 0) := "000000"&"00111"&"00011"&"00111"&"00000"&"100000";		-- LOOP: ADD R7, R7, R3
+	constant im2 : std_logic_vector(31 downto 0) := "100011"&"00111"&"00110"&"0000000000000000";				-- 		LW R6, 0(R7)
+	constant im3 : std_logic_vector(31 downto 0) := "000100"&"00110"&"00010"&"0000000000000110";				-- 		BEQ R6, R2, EXIT
+	constant im4 : std_logic_vector(31 downto 0) := "000000"&"00001"&"00100"&"00001"&"00000"&"100000";		-- 		ADD R1, R1, R4
+	constant im5 : std_logic_vector(31 downto 0) := "000010"&"00000000000000000000000001"; 					--			J Loop
+	constant im6 : std_logic_vector(31 downto 0) := NOP; 																	--	EXIT:
 	constant im7 : std_logic_vector(31 downto 0) := NOP;
 	constant im8 : std_logic_vector(31 downto 0) := NOP;
 	constant im9 : std_logic_vector(31 downto 0) := NOP;
