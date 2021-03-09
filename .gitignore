@@ -10,5 +10,3 @@ simulation/modelsim/*
 !simulation/modelsim/wave.do
 
 *.bak
-isa_nativelink_simulation.rpt
-/isa_nativelink_simulation.rpt
