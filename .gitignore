@@ -1,12 +1,5 @@
+*.bak
 db/
 incremental_db/
+simulation/
 output_files/
-
-# KEEP DEM WAVES
-!simulation/
-simulation/*
-!simulation/modelsim/
-simulation/modelsim/*
-!simulation/modelsim/wave.do
-
-*.bak
