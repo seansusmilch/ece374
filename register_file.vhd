@@ -13,21 +13,21 @@ architecture struc_behaviour of register_file is
 
 	constant zero_value : std_logic_vector(3 downto 0) := (others => '0');
 	constant reg0 : std_logic_vector(3 downto 0) := zero_value;
-	constant reg1 : std_logic_vector(3 downto 0) := "0000";
-	constant reg2 : std_logic_vector(3 downto 0) := "0011";
-	constant reg3 : std_logic_vector(3 downto 0) := "0001";
-	constant reg4 : std_logic_vector(3 downto 0) := "0001";
-	constant reg5 : std_logic_vector(3 downto 0) := zero_value;
-	constant reg6 : std_logic_vector(3 downto 0) := zero_value;
-	constant reg7 : std_logic_vector(3 downto 0) := zero_value;
-	constant reg8 : std_logic_vector(3 downto 0) := zero_value;
-	constant reg9 : std_logic_vector(3 downto 0) := zero_value;
-	constant reg10 : std_logic_vector(3 downto 0) := zero_value;
-	constant reg11 : std_logic_vector(3 downto 0) := zero_value;
-	constant reg12 : std_logic_vector(3 downto 0) := zero_value;
-	constant reg13 : std_logic_vector(3 downto 0) := zero_value;
-	constant reg14 : std_logic_vector(3 downto 0) := zero_value;
-	constant reg15 : std_logic_vector(3 downto 0) := zero_value;
+	constant reg1 : std_logic_vector(3 downto 0) := "0100";
+	constant reg2 : std_logic_vector(3 downto 0) := "0101";
+	constant reg3 : std_logic_vector(3 downto 0) := "1010";
+	constant reg4 : std_logic_vector(3 downto 0) := "0010";
+	constant reg5 : std_logic_vector(3 downto 0) := "0101";
+	constant reg6 : std_logic_vector(3 downto 0) := "0100";
+	constant reg7 : std_logic_vector(3 downto 0) := "0101";
+	constant reg8 : std_logic_vector(3 downto 0) := "1010";
+	constant reg9 : std_logic_vector(3 downto 0) := "0010";
+	constant reg10 : std_logic_vector(3 downto 0) := "0101";
+	constant reg11 : std_logic_vector(3 downto 0) := "0100";
+	constant reg12 : std_logic_vector(3 downto 0) := "0101";
+	constant reg13 : std_logic_vector(3 downto 0) := "1010";
+	constant reg14 : std_logic_vector(3 downto 0) := "0010";
+	constant reg15 : std_logic_vector(3 downto 0) := "0101";
 	
 	signal decoder_port1, decoder_port2, decoder_write_enable : std_logic_vector(15 downto 0);
 	

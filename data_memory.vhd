@@ -19,15 +19,15 @@ architecture struc_behaviour of data_memory is
 	constant data4 : std_logic_vector(3 downto 0) := "0011";
 	constant data5 : std_logic_vector(3 downto 0) := "1010";
 	constant data6 : std_logic_vector(3 downto 0) := "1110";
-	constant data7 : std_logic_vector(3 downto 0) := "0000";
+	constant data7 : std_logic_vector(3 downto 0) := zero_value;
 	constant data8 : std_logic_vector(3 downto 0) := "0101";
 	constant data9 : std_logic_vector(3 downto 0) := "1001";
 	constant data10 : std_logic_vector(3 downto 0) := "0001";
-	constant data11 : std_logic_vector(3 downto 0) := "0000";
-	constant data12 : std_logic_vector(3 downto 0) := "0000";
-	constant data13 : std_logic_vector(3 downto 0) := "0000";
-	constant data14 : std_logic_vector(3 downto 0) := "0000";
-	constant data15 : std_logic_vector(3 downto 0) := "0000";
+	constant data11 : std_logic_vector(3 downto 0) := "0010";
+	constant data12 : std_logic_vector(3 downto 0) := zero_value;
+	constant data13 : std_logic_vector(3 downto 0) := zero_value;
+	constant data14 : std_logic_vector(3 downto 0) := zero_value;
+	constant data15 : std_logic_vector(3 downto 0) := zero_value;
 	
 	signal decoder_port1, decoder_port2, decoder_write_enable : std_logic_vector(15 downto 0);
 	
