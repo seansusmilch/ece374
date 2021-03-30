@@ -51,15 +51,17 @@ begin
 									reg_write_data;
 									
 					
-					---------------- Lab 6 and 7 Mapping -----------------
-					
-					---------------- IF/ID Pipeline Stage ----------------
+			--------------------- Lab 6 and 7 Mapping -----------------------------------
 					
 					pc    : regN generic map (n=>4) port map (clock, mout, rout);
                
 					---------- pc = pc +1 ------------------------------------------
-					addpc : ripple_carry port map ('0', rout, "0001", update_pc);                                                                                                                                                                  --- register
-
+					addpc : ripple_carry port map ('0', rout, "0001", update_pc);
+                                                                                                                                                               --- register
+					----------- IM -------------------------------------------------
+					im : instruction_memory port map (clock, reset, rout, instr_from_im);
+					
+			----------------------- IF/ID Pipeline Stage ----------------------------------
 					
 				
 end behaviour;
