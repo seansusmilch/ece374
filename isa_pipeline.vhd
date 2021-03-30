@@ -12,7 +12,7 @@ ENTITY isa_pipeline IS
 architecture behaviour of isa_pipeline is
                 constant initial_pc : std_logic_vector(3 downto 0) := (others => '0');
                 signal update_pc, read_port1, read_port2, write_port, rd_addr, w_value, src1, src2, sum, rout, mout, reg_write_data, mem_read_data, reg_write_src, alu_in_2, immediate : std_logic_vector(3 downto 0);
-                signal instr_from_im : std_logic_vector(31 downto 0);
+                signal instr_from_im, IF_ID_value1, IF_ID_value2 : std_logic_vector(31 downto 0);
                 signal MemRead, MemWrite, RegWrite, add_sub, zero2, MemtoReg, RegDst, ALUSrc, Branch: std_logic;
                 signal alu_op : std_logic_vector(1 downto 0);
                 
@@ -62,7 +62,8 @@ begin
 					im : instruction_memory port map (clock, reset, rout, instr_from_im);
 					
 			----------------------- IF/ID Pipeline Stage ----------------------------------
-					
+					r1 : regN generic map (n=>4) port map (clock, update_pc, IF_ID_value1);
+					r2 : regN generic map (n=>32) port map (clock, instr_from_im, IF_ID_value2);
 				
 end behaviour;
 
