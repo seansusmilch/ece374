@@ -22,7 +22,7 @@ begin
 	shamt <= instr(10 downto 6);
 	funct <= instr(5 downto 0);
 
-	read_p1 <= instr(24 downto 21);
+	read_p1 <= instr(24 downto 21); -- Arent the left numbers supposed to be 1 higher????
 	read_p2 <= instr(19 downto 16);
 	write_p <= instr(14 downto 11);
 	immediate <= instr(3 downto 0);
