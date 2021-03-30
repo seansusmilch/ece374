@@ -144,8 +144,8 @@ begin
 					
 					current_pc <= rout;
 
-					result <= src2 when (MemWrite = '1') else
-								reg_write_data;
+					result <= EX_MEM_src2 when (EX_MEM_MemWrite = '1') else
+								WB_reg_write_data;
 					
 end behaviour;
 
