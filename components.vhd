@@ -61,6 +61,14 @@ component regN is
 	  Q : out std_logic_vector(N-1 downto 0));
 end component;
 
+------------ 1 bit register -----------------------
+component reg1 is
+	port (clock : in std_logic;
+		reset : in std_logic;
+		D : in std_logic;
+		Q : out std_logic);
+end component;
+
 -------------- instruction memeory --------------------------
 component instruction_memory is
 	port(clock, reset : in std_logic;
