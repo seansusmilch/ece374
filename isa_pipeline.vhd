@@ -53,7 +53,7 @@ begin
 					
 			--------------------- Lab 6 and 7 Mapping -----------------------------------
 					
-					pc    : regN generic map (n=>4) port map (clock, mout, rout);
+					pc    : regN generic map (n=>4) port map (clock, next_pc, rout);
                
 					---------- pc = pc +1 ------------------------------------------
 					addpc : ripple_carry port map ('0', rout, "0001", update_pc);
@@ -64,6 +64,19 @@ begin
 			----------------------- IF/ID Pipeline Stage ----------------------------------
 					r1 : regN generic map (n=>4) port map (clock, update_pc, IF_ID_value1);
 					r2 : regN generic map (n=>32) port map (clock, instr_from_im, IF_ID_value2);
-				
+			
+					------------------------ ID -----------------------------
+					
+					rf : register_file port map (clock, reset, RegWrite, read_port1, read_port2, write_port, reg_write_data, src1, src2);
+
+			----------------------- ID/EX Pipeline Stage ----------------------------------
+					r3 : reg1 port map (clock, reset, (temp(Control1)), ID_EX_WB);
+					r4 : reg1 port map (clock, reset, (temp(Control2)), ID_EX_M);
+					r5 : regN generic map (n=>3) port map (clock, (temp(Control3)), ID_EX_EX);
+					--r6 : regN generic map Place holder because not needed for this lab.
+					r7 : regN generic map (n=>4) port map (clock, src1, ID_EX_value1);
+					r8 : regN generic map (n=>4) port map (clock, src2, ID_EX_value2);
+					r9 : regN generic map (n=>32) port map (clock, 
+					
 end behaviour;
 
