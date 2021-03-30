@@ -16,7 +16,7 @@ architecture struc_behaviour of instruction_memory is
 	
 	constant im0 : std_logic_vector(31 downto 0) := NOP;
 	constant im1 : std_logic_vector(31 downto 0) := "000000"&"00001"&"00000"&"00001"&"00000"&"100000";		-- ADD R1, R1, R0				Expect: 4
-	constant im2 : std_logic_vector(31 downto 0) := "000000"&"00011"&"00100"&"00010"&"00000"&"100010";		-- ADD R2, R3, R4				Expect: 12
+	constant im2 : std_logic_vector(31 downto 0) := "000000"&"00011"&"00100"&"00010"&"00000"&"100010";		-- SUB R2, R3, R4				Expect: 8
 	constant im3 : std_logic_vector(31 downto 0) := "100011"&"01100"&"00010"&"0000000000000010";				-- LW R6, 2(R12)				Expect: 0
 	constant im4 : std_logic_vector(31 downto 0) := "000000"&"01000"&"00101"&"01101"&"00000"&"100100";		-- AND R13, R8, R5			Expect: 0
 	constant im5 : std_logic_vector(31 downto 0) := "000000"&"01011"&"00111"&"01100"&"00000"&"100101";		-- OR R14, R11, R7			Expect: 5
