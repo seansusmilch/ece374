@@ -27,7 +27,7 @@ architecture struc_behaviour of register_file is
 	constant reg12 : std_logic_vector(3 downto 0) := "0101";
 	constant reg13 : std_logic_vector(3 downto 0) := "1010";
 	constant reg14 : std_logic_vector(3 downto 0) := "0010";
-	constant reg15 : std_logic_vector(3 downto 0) := "0101";
+	constant reg15 : std_logic_vector(3 downto 0) := "0100";
 	
 	signal decoder_port1, decoder_port2, decoder_write_enable : std_logic_vector(15 downto 0);
 	
