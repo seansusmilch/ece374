@@ -22,9 +22,9 @@ begin
 	shamt <= instr(10 downto 6);
 	funct <= instr(5 downto 0);
 
-	read_p1 <= instr(24 downto 21); 
-	read_p2 <= instr(19 downto 16);
-	write_p <= instr(14 downto 11);
+	read_p1 <= instr(24 downto 21);	--Rs
+	read_p2 <= instr(19 downto 16);	--Rt
+	write_p <= instr(14 downto 11);	--Rd
 	immediate <= instr(3 downto 0);
 	
 	RegDst <= '1' when (opcode = "000000")

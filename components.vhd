@@ -125,4 +125,13 @@ component data_memory is
 			value1: out std_logic_vector(3 downto 0));
 end component;
 
+--------------- Forwarding Unit ---------------------
+component forwarding_unit is
+	port( ID_EX_Rs, ID_EX_Rt, EX_MEM_Rd, MEM_WB_Rd : in std_logic_vector(3 downto 0);
+		EX_MEM_RegWrite : in std_logic;
+		MEM_WB_RegWrite : in std_logic;
+		
+		Fwd_A, Fwd_B : out std_logic_vector(1 downto 0));
+end component;
+
 end components;

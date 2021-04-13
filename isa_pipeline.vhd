@@ -7,21 +7,21 @@ USE work.components.all;
 ENTITY isa_pipeline IS 
                 port( clock, reset : in std_logic;
                 current_pc, result : out std_logic_vector(3 downto 0));
-                end isa_pipeline;
+end isa_pipeline;
                 
 architecture behaviour of isa_pipeline is
 					constant initial_pc : std_logic_vector(3 downto 0) := (others => '0');
-					signal update_pc, read_port1, read_port2, write_port, rd_addr, w_value, src1, src2, sum, rout, mout, reg_write_data, mem_read_data, reg_write_src, alu_in_2, immediate : std_logic_vector(3 downto 0);
+					signal update_pc, rs_addr, rt_addr, write_port, rd_addr, w_value, src1, src2, sum, rout, mout, reg_write_data, mem_read_data, reg_write_src, alu_in_2, immediate : std_logic_vector(3 downto 0);
 					signal instr_from_im : std_logic_vector(31 downto 0);
 					signal MemRead, MemWrite, RegWrite, add_sub, zero2, MemtoReg, RegDst, ALUSrc, Branch: std_logic;
 					signal alu_op : std_logic_vector(1 downto 0);
 
-					-- IF/IM Pipeline Signals
+					-- IF/ID Pipeline Signals
 					signal IF_ID_instr : std_logic_vector(31 downto 0);
-					-- IM/EX Pipeline Signals
+					-- ID/EX Pipeline Signals
 					signal ID_EX_RegWrite, ID_EX_MemtoReg, ID_EX_MemRead, ID_EX_MemWrite, ID_EX_RegDst, ID_EX_ALUSrc, ID_EX_add_sub : std_logic;
 					signal ID_EX_alu_op : std_logic_vector(1 downto 0);
-					signal ID_EX_src1, ID_EX_src2, ID_EX_immediate, ID_EX_read_port2, ID_EX_rd_addr : std_logic_vector(3 downto 0);
+					signal ID_EX_src1, ID_EX_src2, ID_EX_immediate, ID_EX_rs_addr, ID_EX_rt_addr, ID_EX_rd_addr : std_logic_vector(3 downto 0);
 					-- EX/MEM Pipeline Signals
 					signal EX_MEM_RegWrite, EX_MEM_MemtoReg, EX_MEM_MemRead, EX_MEM_MemWrite, EX_MEM_zero2 : std_logic;
 					signal EX_MEM_sum, EX_MEM_src2, EX_MEM_write_port : std_logic_vector(3 downto 0);
@@ -30,6 +30,10 @@ architecture behaviour of isa_pipeline is
 					signal MEM_WB_mem_read_data, MEM_WB_sum, MEM_WB_write_port : std_logic_vector(3 downto 0);
 					-- For WB
 					signal WB_reg_write_data : std_logic_vector(3 downto 0);
+					-- Forwarding
+					signal Fwd_data_A, Fwd_data_B : std_logic_vector(3 downto 0);
+					signal Fwd_A, Fwd_B : std_logic_vector(1 downto 0);
+--					signal EX_MEM_rd_addr, MEM_WB_rd_addr : std_logic_vector(3 downto 0);
 					
 begin
 --					pc_mux : mux2to1 generic map (n=>4) port map (reset, update_pc, initial_pc, mout);
@@ -43,12 +47,12 @@ begin
 --					------------- ID ------------------------------------------------
 --					id : instruction_decode port map (instr_from_im, 
 --													MemRead, MemWrite, RegWrite, add_sub, RegDst, ALUSrc, Branch, MemtoReg,
---													read_port1, read_port2, rd_addr, immediate, 
+--													rs_addr, rt_addr, rd_addr, immediate, 
 --													alu_op);
 --
 --					------------- RF --------------------------------------------------
---					------- regwrite_mux : mux2to1 port map (RegDst, read_port2, rd_addr, write_port); 	No need for this mux anymore.
---					rf : register_file port map (clock, reset, RegWrite, read_port1, read_port2, write_port, reg_write_data, src1, src2);
+--					------- regwrite_mux : mux2to1 port map (RegDst, rt_addr, rd_addr, write_port); 	No need for this mux anymore.
+--					rf : register_file port map (clock, reset, RegWrite, rs_addr, rt_addr, write_port, reg_write_data, src1, src2);
 --
 --
 --					alusrc_mux : mux2to1 port map (ALUSrc, src2, immediate, alu_in_2);
@@ -83,10 +87,10 @@ begin
 					------------------------ ID -----------------------------
 					
 					id : instruction_decode port map (IF_ID_instr, MemRead, MemWrite, RegWrite, add_sub, RegDst, ALUSrc, Branch, MemtoReg,
-														read_port1, read_port2, rd_addr, immediate, 
+														rs_addr, rt_addr, rd_addr, immediate, 
 														alu_op);
 
-					rf : register_file port map (clock, reset, MEM_WB_RegWrite, read_port1, read_port2, MEM_WB_write_port, WB_reg_write_data, src1, src2);
+					rf : register_file port map (clock, reset, MEM_WB_RegWrite, rs_addr, rt_addr, MEM_WB_write_port, WB_reg_write_data, src1, src2);
 
 			----------------------- ID/EX Pipeline Stage ----------------------------------
 					-- WB
@@ -104,14 +108,22 @@ begin
 					ID_EX_r9 : regN generic map (n=>4) port map (clock, src1, ID_EX_src1);
 					ID_EX_r10 : regN generic map (n=>4) port map (clock, src2, ID_EX_src2);
 					ID_EX_r11 : regN generic map (n=>4) port map (clock, immediate, ID_EX_immediate);
-					ID_EX_r12 : regN generic map (n=>4) port map (clock, read_port2, ID_EX_read_port2);
-					ID_EX_r13 : regN generic map (n=>4) port map (clock, rd_addr, ID_EX_rd_addr);
+					ID_EX_r12 : regN generic map (n=>4) port map (clock, rs_addr, ID_EX_rs_addr);
+					ID_EX_r13 : regN generic map (n=>4) port map (clock, rt_addr, ID_EX_rt_addr);
+					ID_EX_r14 : regN generic map (n=>4) port map (clock, rd_addr, ID_EX_rd_addr);
+					
 					
 					------------------------ EX -----------------------------
-					alusrc_mux : mux2to1 port map (ID_EX_ALUSrc, ID_EX_src2, ID_EX_immediate, alu_in_2);
-					alu_stuff : alu port map (ID_EX_src1, alu_in_2, ID_EX_add_sub, ID_EX_alu_op, zero2, sum);
+					fwd_muxA : mux4to1 port map (ID_EX_src1, WB_reg_write_data, EX_MEM_sum, "0000", Fwd_A, Fwd_data_A);																				-- fwd muxes
+					fwd_muxB : mux4to1 port map (ID_EX_src2, WB_reg_write_data, EX_MEM_sum, "0000", Fwd_B, Fwd_data_B);
 					
-					regwrite_mux : mux2to1 port map (ID_EX_RegDst, ID_EX_read_port2, ID_EX_rd_addr, write_port);
+					f_u : forwarding_unit port map (ID_EX_rs_addr, ID_EX_rt_addr, EX_MEM_write_port, MEM_WB_write_port,
+																EX_MEM_RegWrite, MEM_WB_RegWrite, Fwd_A, Fwd_B);
+					
+					alusrc_mux : mux2to1 port map (ID_EX_ALUSrc, Fwd_data_B, ID_EX_immediate, alu_in_2);
+					alu_stuff : alu port map (Fwd_data_A, alu_in_2, ID_EX_add_sub, ID_EX_alu_op, zero2, sum);
+					
+					regwrite_mux : mux2to1 port map (ID_EX_RegDst, ID_EX_rt_addr, ID_EX_rd_addr, write_port);
 					
 			----------------------- EX/MEM Pipeline Stage ----------------------------------
 					-- WB
