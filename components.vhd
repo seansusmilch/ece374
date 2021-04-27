@@ -134,4 +134,14 @@ component forwarding_unit is
 		Fwd_A, Fwd_B : out std_logic_vector(1 downto 0));
 end component;
 
+-------------- Hazard Detection ---------------------
+component haz_det is
+	port( 
+			ID_EX_MemRead  : in std_logic;
+			ID_EX_rt_addr : in std_logic_vector(3 downto 0);
+			instr_from_im, IF_ID_instr : in std_logic_vector(31 downto 0);
+			
+			stall : out std_logic;
+end component;
+
 end components;
