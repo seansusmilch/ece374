@@ -40,6 +40,7 @@ architecture behaviour of isa_pipeline is
 					
 					signal ID_EX_RegWrite_in, ID_EX_MemtoReg_in, ID_EX_MemRead_in, ID_EX_MemWrite_in, ID_EX_RegDst_in, ID_EX_ALUSrc_in, ID_EX_add_sub_in : std_logic;
 					signal ID_EX_alu_op_in : std_logic_vector(1 downto 0);
+					signal ID_EX_src1_in, ID_EX_src2_in, ID_EX_immediate_in, ID_EX_rs_addr_in, ID_EX_rt_addr_in, ID_EX_rd_addr_in : std_logic_vector(3 downto 0);
 					
 begin
 			
@@ -84,6 +85,13 @@ begin
 					stall_ALUSrc_mux : mux2to1_1bit port map(stall, ALUSrc, '0', ID_EX_ALUSrc_in);
 					stall_add_sub_mux : mux2to1_1bit port map(stall, add_sub, '0', ID_EX_add_sub_in);
 					
+					ID_EX_src1_in <= "0000" when(stall = '1') else src1;
+					ID_EX_src2_in <= "0000" when(stall = '1') else src2;
+					ID_EX_immediate_in <= "0000" when(stall = '1') else immediate;
+					ID_EX_rs_addr_in <= "0000" when(stall = '1') else rs_addr;
+					ID_EX_rt_addr_in <= "0000" when(stall = '1') else rt_addr;
+					ID_EX_rd_addr_in <= "0000" when(stall = '1') else rd_addr;
+					
 					--------------------- Register --------------------------
 					rf : register_file port map (clock, reset, MEM_WB_RegWrite, rs_addr, rt_addr, MEM_WB_write_port, WB_reg_write_data, src1, src2);
 
@@ -100,12 +108,12 @@ begin
 					ID_EX_r7 : reg1 port map (clock, reset, ID_EX_ALUSrc_in, ID_EX_ALUSrc);
 					ID_EX_r8 : reg1 port map (clock, reset, ID_EX_add_sub_in, ID_EX_add_sub);
 					-- The rest for ID_EX
-					ID_EX_r9 : regN generic map (n=>4) port map (clock, src1, ID_EX_src1);
-					ID_EX_r10 : regN generic map (n=>4) port map (clock, src2, ID_EX_src2);
-					ID_EX_r11 : regN generic map (n=>4) port map (clock, immediate, ID_EX_immediate);
-					ID_EX_r12 : regN generic map (n=>4) port map (clock, rs_addr, ID_EX_rs_addr);
-					ID_EX_r13 : regN generic map (n=>4) port map (clock, rt_addr, ID_EX_rt_addr);
-					ID_EX_r14 : regN generic map (n=>4) port map (clock, rd_addr, ID_EX_rd_addr);
+					ID_EX_r9 : regN generic map (n=>4) port map (clock, ID_EX_src1_in, ID_EX_src1);
+					ID_EX_r10 : regN generic map (n=>4) port map (clock, ID_EX_src2_in, ID_EX_src2);
+					ID_EX_r11 : regN generic map (n=>4) port map (clock, ID_EX_immediate_in, ID_EX_immediate);
+					ID_EX_r12 : regN generic map (n=>4) port map (clock, ID_EX_rs_addr_in, ID_EX_rs_addr);
+					ID_EX_r13 : regN generic map (n=>4) port map (clock, ID_EX_rt_addr_in, ID_EX_rt_addr);
+					ID_EX_r14 : regN generic map (n=>4) port map (clock, ID_EX_rd_addr_in, ID_EX_rd_addr);
 					
 					
 					------------------------ EX -----------------------------
