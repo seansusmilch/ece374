@@ -137,11 +137,17 @@ end component;
 -------------- Hazard Detection ---------------------
 component haz_det is
 	port( 
-			ID_EX_MemRead  : in std_logic;
-			ID_EX_rt_addr : in std_logic_vector(3 downto 0);
-			instr_from_im, IF_ID_instr : in std_logic_vector(31 downto 0);
+			ID_EX_MemRead : in std_logic;
+			ID_EX_Rt, IF_ID_Rs, IF_ID_Rt : in std_logic_vector(3 downto 0);
 			
-			stall : out std_logic;
+			stall : out std_logic);
 end component;
+
+-------------- 1 Bit 2 to 1 Mux ---------------------
+component mux2to1_1bit IS
+	PORT ( s : IN std_logic;
+			a, b : in std_logic;
+			f : OUT std_logic);
+END component;
 
 end components;
