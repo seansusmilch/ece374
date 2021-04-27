@@ -134,4 +134,20 @@ component forwarding_unit is
 		Fwd_A, Fwd_B : out std_logic_vector(1 downto 0));
 end component;
 
+--------------- Hazard Detection Unit ---------------------
+component haz_det is
+	port( 
+			ID_EX_MemRead : in std_logic;
+			ID_EX_Rt, IF_ID_Rs, IF_ID_Rt : in std_logic_vector(3 downto 0);
+			
+			stall : out std_logic);
+end component;
+
+--------------- Dumb Mux ---------------------
+component mux2to1_1bit IS
+	PORT ( s : IN std_logic;
+			a, b : in std_logic;
+			f : OUT std_logic);
+END component;
+
 end components;
