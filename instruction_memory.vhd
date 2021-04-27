@@ -15,16 +15,16 @@ architecture struc_behaviour of instruction_memory is
 	constant NOP : std_logic_vector(31 downto 0) := (others => '1');
 	
 	constant im0 : std_logic_vector(31 downto 0) := NOP;
-	constant im1 : std_logic_vector(31 downto 0) := "100011"&"00000"&"00001"&"000000000000000";				-- LW R1, 0(R0)				Expect:  
-	constant im2 : std_logic_vector(31 downto 0) := "000000"&"00001"&"00100"&"00010"&"00000"&"100000";		-- ADD R2, R1, R4				Expect: 
-	constant im3 : std_logic_vector(31 downto 0) := "000000"&"00010"&"00001"&"01100"&"00000"&"100010";		-- SUB R12, R2, R1			Expect:  
-	constant im4 : std_logic_vector(31 downto 0) := "100011"&"00111"&"00010"&"000000000000001";				-- LW R2, 1(R7)				Expect:  
-	constant im5 : std_logic_vector(31 downto 0) := "000000"&"00110"&"00010"&"01110"&"00000"&"100100";		-- AND R12, R6, R2			Expect: 
-	constant im6 : std_logic_vector(31 downto 0) := "100011"&"01100"&"00110"&"0000000000000010";				-- LW R6, 2(R12)				Expect: 
-	constant im7 : std_logic_vector(31 downto 0) := "000000"&"01100"&"01110"&"01111"&"00000"&"100000";		-- ADD R15, R12, R14			Expect: 
-	constant im8 : std_logic_vector(31 downto 0) := "100011"&"01100"&"00011"&"0000000000000011";				-- LW R3, 3(R12)				Expect: 
-	constant im9 : std_logic_vector(31 downto 0) := "100011"&"01100"&"00000"&"0000000000000100";				-- LW R0, 4(R12)				Expect: 
-	constant im10 : std_logic_vector(31 downto 0) := "000000"&"00010"&"00011"&"01111"&"00000"&"100101";	-- OR R15, R2, R3				Expect: 
+	constant im1 : std_logic_vector(31 downto 0) := "100011"&"00000"&"00001"&"000000000000000";				-- LW R1, 0(R0)				Expect: 4
+	constant im2 : std_logic_vector(31 downto 0) := "000000"&"00001"&"00100"&"00010"&"00000"&"100000";		-- ADD R2, R1, R4				Expect: 6
+	constant im3 : std_logic_vector(31 downto 0) := "000000"&"00010"&"00001"&"01100"&"00000"&"100010";		-- SUB R12, R2, R1			Expect: 2
+	constant im4 : std_logic_vector(31 downto 0) := "100011"&"00111"&"00010"&"000000000000001";				-- LW R2, 1(R7)				Expect: 14
+	constant im5 : std_logic_vector(31 downto 0) := "000000"&"00110"&"00010"&"01110"&"00000"&"100100";		-- AND R12, R6, R2			Expect: 6
+	constant im6 : std_logic_vector(31 downto 0) := "100011"&"01100"&"00110"&"0000000000000010";				-- LW R6, 2(R12)				Expect: 3
+	constant im7 : std_logic_vector(31 downto 0) := "000000"&"01100"&"01110"&"01111"&"00000"&"100000";		-- ADD R15, R12, R14			Expect: 2
+	constant im8 : std_logic_vector(31 downto 0) := "100011"&"01100"&"00011"&"0000000000000011";				-- LW R3, 3(R12)				Expect: 10
+	constant im9 : std_logic_vector(31 downto 0) := "100011"&"01100"&"00000"&"0000000000000100";				-- LW R0, 4(R12)				Expect: 14
+	constant im10 : std_logic_vector(31 downto 0) := "000000"&"00010"&"00011"&"01111"&"00000"&"100101";	-- OR R15, R2, R3				Expect: 14
 	constant im11 : std_logic_vector(31 downto 0) := NOP;
 	constant im12 : std_logic_vector(31 downto 0) := NOP;
 	constant im13 : std_logic_vector(31 downto 0) := NOP;
