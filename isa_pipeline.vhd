@@ -36,40 +36,7 @@ architecture behaviour of isa_pipeline is
 --					signal EX_MEM_rd_addr, MEM_WB_rd_addr : std_logic_vector(3 downto 0);
 					
 begin
---					pc_mux : mux2to1 generic map (n=>4) port map (reset, update_pc, initial_pc, mout);
---					pc           : regN generic map (n=>4) port map (clock, mout, rout);                                                                                                                                                                                 --- register
---					---------- pc = pc +1 ------------------------------------------
---					addpc : ripple_carry port map ('0', rout, "0001", update_pc);
---
---					----------- IM -------------------------------------------------
---					im : instruction_memory port map (clock, reset, rout, instr_from_im);
---
---					------------- ID ------------------------------------------------
---					id : instruction_decode port map (instr_from_im, 
---													MemRead, MemWrite, RegWrite, add_sub, RegDst, ALUSrc, Branch, MemtoReg,
---													rs_addr, rt_addr, rd_addr, immediate, 
---													alu_op);
---
---					------------- RF --------------------------------------------------
---					------- regwrite_mux : mux2to1 port map (RegDst, rt_addr, rd_addr, write_port); 	No need for this mux anymore.
---					rf : register_file port map (clock, reset, RegWrite, rs_addr, rt_addr, write_port, reg_write_data, src1, src2);
---
---
---					alusrc_mux : mux2to1 port map (ALUSrc, src2, immediate, alu_in_2);
---					alu_stuff : alu port map (src1, alu_in_2, add_sub, alu_op, zero2, sum);
---
---					------------- MEM -------------------------------------------------
---					mem : data_memory port map (clock, reset, MemWrite, sum, src2, mem_read_data);
---
---					---------- WB ----------------------------------------
---					wb : mux2to1 port map (MemtoReg, sum, mem_read_data, reg_write_data);
-
---					current_pc <= rout;
---
---					result <= src2 when (MemWrite = '1') else
---								reg_write_data;
-									
-					
+			
 			--------------------- Lab 6 and 7 Mapping -----------------------------------
 					
 					pc_mux : mux2to1 generic map (n=>4) port map (reset, update_pc, initial_pc, mout);
