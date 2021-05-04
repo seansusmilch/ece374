@@ -145,9 +145,8 @@ end component;
 
 -------------- 1 Bit 2 to 1 Mux ---------------------
 component mux2to1_1bit IS
-	PORT ( s : IN std_logic;
-			a, b : in std_logic;
-			f : OUT std_logic);
+	PORT ( con,i0,i1 : IN std_logic;
+			o : OUT std_logic);
 END component;
 
 end components;
